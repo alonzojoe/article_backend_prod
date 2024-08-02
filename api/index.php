@@ -2,8 +2,6 @@
 
 // Load Laravel App
 
-use PHPOpenSourceSaver\JWTAuth\Providers\Auth\Illuminate;
-
 require __DIR__ . '/../vendor/autoload.php';
 
 $app = require_once __DIR__ . '/../bootstrap/app.php';
