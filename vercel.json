@@ -7,7 +7,7 @@
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "api/indx.php"
+            "dest": "/api/indx.php"
         }
     ],
     "env": {
