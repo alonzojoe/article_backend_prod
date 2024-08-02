@@ -7,6 +7,10 @@ use App\Http\Controllers\API\ArticleController;
 use App\Http\Controllers\API\CommentVoteController;
 use App\Http\Controllers\API\UserController;
 
+Route::get('/', function () {
+    return response()->json(['message' => 'Hello, test API']);
+});
+
 Route::group(['prefix' => '/auth'], function () {
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/register', [AuthController::class, 'register']);
