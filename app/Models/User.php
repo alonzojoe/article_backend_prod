@@ -47,7 +47,8 @@ class User extends Authenticatable implements JWTSubject
 
     public function getProfileUrlAttribute()
     {
-        return $this->profile ? url('storage/' . $this->profile) : null;
+        // return $this->profile ? url('storage/' . $this->profile) : null;
+        return $this->profile ?: null;
     }
 
     public function getJWTIdentifier()

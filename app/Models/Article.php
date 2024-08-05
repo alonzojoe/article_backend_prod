@@ -21,7 +21,8 @@ class Article extends Model
 
     public function getPhotoUrlAttribute()
     {
-        return $this->photo ? url('storage/' . $this->photo) : null;
+        // return $this->photo ? url('storage/' . $this->photo) : null;
+        return $this->photo ?: null;
     }
 
     public function user()
