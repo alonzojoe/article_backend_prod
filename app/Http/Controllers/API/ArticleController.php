@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Article;
+use Cloudinary\Cloudinary;
 
 class ArticleController extends Controller
 {
@@ -55,17 +56,24 @@ class ArticleController extends Controller
             'user_id' => 'required|exists:users,id'
         ]);
 
-        $photoPath = null;
-
+        // $photoPath = null;
+        $photoUrl = null;
         if ($request->hasFile('photo')) {
 
-            $photoPath = $request->file('photo')->store('posts', 'public');
+            // $photoPath = $request->file('photo')->store('posts', 'public');
+            $photo = $request->file('photo');
+            $cloudinary = new Cloudinary();
+            $uploadedImage = $cloudinary->uploadApi()->upload($photo->getRealPath(), [
+                'folder' => 'posts',
+            ]);
+
+            $photoUrl = $uploadedImage['secure_url'];
         }
 
         $article = Article::create([
             'title' => $request->title,
             'content' => $request->content,
-            'photo' => $photoPath,
+            'photo' => $photoUrl,
             'user_id' => $request->user_id
         ]);
 

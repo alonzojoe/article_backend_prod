@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use APp\Models\User;
+use Cloudinary\Cloudinary;
 
 class UserController extends Controller
 {
@@ -27,8 +28,15 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         if ($request->hasFile('profile')) {
-            $path = $request->file('profile')->store('profiles', 'public');
-            $user->profile = $path;
+            // $path = $request->file('profile')->store('profiles', 'public');
+            // $user->profile = $path;
+
+            $profileImage = $request->file('profile');
+            $cloudinary = new Cloudinary();
+            $uploadedImage = $cloudinary->uploadApi()->upload($profileImage->getRealPath(), [
+                'folder' => 'profiles',
+            ]);
+            $user->profile = $uploadedImage['secure_url'];
         }
 
         $user->name = $request->name;
