@@ -62,7 +62,7 @@ class ArticleController extends Controller
 
             // $photoPath = $request->file('photo')->store('posts', 'public');
             $photo = $request->file('photo');
-            $cloudinary = new Cloudinary();
+            $cloudinary = new Cloudinary(config('services.cloudinary'));
             $uploadedImage = $cloudinary->uploadApi()->upload($photo->getRealPath(), [
                 'folder' => 'posts',
             ]);

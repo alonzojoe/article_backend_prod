@@ -32,7 +32,7 @@ class UserController extends Controller
             // $user->profile = $path;
 
             $profileImage = $request->file('profile');
-            $cloudinary = new Cloudinary();
+            $cloudinary = new Cloudinary(config('services.cloudinary'));
             $uploadedImage = $cloudinary->uploadApi()->upload($profileImage->getRealPath(), [
                 'folder' => 'profiles',
             ]);
